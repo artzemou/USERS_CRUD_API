@@ -113,14 +113,38 @@ app.post('/user', function (req, res) {
 
 //  Update user with id
 app.put('/user', function (req, res) {
-	const {id, firstName, name, email, birthday} = req.body
-	let user = req.body.user;
+	let {id, firstName, name, email, birthday} = req.body
 	if (!id) {
 	  return res.status(400).json({ 
 		  error: true, 
 		  message: 'Please provide user and user id' 
 		})
 	}
+	if (!firstName) {
+		return res.status(400).json({ 
+			error: true, 
+			message: 'First name is required' 
+		})
+   	}
+	if (!name) {
+		return res.status(400).json({ 
+			error: true, 
+			message: 'Name is required' 
+		})
+   	}
+	if (!email) {
+		return res.status(400).json({ 
+			error: true, 
+			message: 'Email is required' 
+		})
+	}
+	if ( !validator.isEmail(req.body.email) ) {
+		return res.status(400).json({ 
+			error: true, 
+			message: 'Email is invalid' 
+		})
+	}
+	birthday = validator.toDate(req.body.birthday)
 	connection.query(
 		"UPDATE users SET firstName = ?, name = ?, email = ?, birthday = ? WHERE id = ?", 
 		[firstName, name, email, birthday, id ], 
