@@ -2,7 +2,6 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 
-const mysql = require("mysql");
 const chalk = require('chalk')
 const bodyParser = require('body-parser')
 const connection = require('./connection')
@@ -28,6 +27,7 @@ app.get('/users', function (req, res) {
 			error: false, 
 			results 
 		})
+		connection.end()
 	})
 })
 
@@ -40,7 +40,6 @@ app.get('/user/:id', function (req, res) {
 			 message: 'Please provide user id' 
 		})
 	}
-	
 	connection.query(
 		'SELECT * FROM users where id=?', 
 		id, 
@@ -50,6 +49,7 @@ app.get('/user/:id', function (req, res) {
 				error: false, 
 				result: results[0]
 			})
+			connection.end()
 	})
 });
 
@@ -108,6 +108,7 @@ app.post('/user', function (req, res) {
 					})
 				})
 			}
+			connection.end()
 	})
 })
 
@@ -155,6 +156,7 @@ app.put('/user', function (req, res) {
 				data: results, 
 				message: 'User has been updated successfully.' 
 			})
+			connection.end()
 	 })
 })
 
@@ -167,6 +169,7 @@ app.delete('/user', function (req, res) {
 			message: 'Please provide user id' 
 		})
 	}
+	connection.connect()
 	connection.query(
 		'DELETE FROM users WHERE id = ?', 
 		[id], 
@@ -176,6 +179,7 @@ app.delete('/user', function (req, res) {
 			error: false, data: results, 
 			message: 'User has been deleted successfully.' 
 		})
+		connection.end()
 	})
 })
 
