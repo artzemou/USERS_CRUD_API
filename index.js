@@ -1,11 +1,14 @@
 const express = require('express')
 const app = express()
+var cors = require('cors')
+
 const mysql = require("mysql");
 const chalk = require('chalk')
 var bodyParser = require('body-parser')
 const connection = require('./connection')
 const validator = require('validator')
 const PORT = process.env.PORT || 3000
+app.use(cors())
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
