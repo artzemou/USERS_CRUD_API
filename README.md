@@ -1,15 +1,15 @@
 # CRUD Restfull Api
 
 ## Installation des modules npm
-npm install
+<code>npm install</code>
 
 ## Lancement de l'api
-npm run start
+<code>npm run start</code>
 
 ## .env
 La creation d'un fichier .env est necessaire au bon fonctionnement de l'api. Renseigner les variables suivantes.
 
-HOST=host
-DB_USER=user
-PASSWORD=password
-DB=db
+HOST=host<br>
+DB_USER=user<br>
+PASSWORD=password<br>
+DB=db<br>
