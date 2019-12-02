@@ -1,10 +1,10 @@
 const express = require('express')
 const app = express()
-var cors = require('cors')
+const cors = require('cors')
 
 const mysql = require("mysql");
 const chalk = require('chalk')
-var bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
 const connection = require('./connection')
 const validator = require('validator')
 const PORT = process.env.PORT || 3000
