@@ -21,6 +21,7 @@ app.use(function(req, res, next) {
 
 // Retrieve all users 
 app.get('/users', function (req, res) {
+	
 	connection.query('SELECT * FROM users', function (error, results, fields) {
 		if (error) throw error;
 		return res.status(200).json({ 
@@ -40,6 +41,7 @@ app.get('/user/:id', function (req, res) {
 			 message: 'Please provide user id' 
 		})
 	}
+	
 	connection.query(
 		'SELECT * FROM users where id=?', 
 		id, 
@@ -83,6 +85,7 @@ app.post('/user', function (req, res) {
 		})
 	}
 	// Check email unicity
+	
 	connection.query(
 		'SELECT id FROM users WHERE email = ?', 
 		[email], 
@@ -106,9 +109,9 @@ app.post('/user', function (req, res) {
 						data: results, 
 						message: 'New user has been created successfully.' 
 					})
+					connection.end()
 				})
 			}
-			connection.end()
 	})
 })
 
@@ -146,6 +149,7 @@ app.put('/user', function (req, res) {
 		})
 	}
 	birthday = validator.toDate(req.body.birthday)
+	
 	connection.query(
 		"UPDATE users SET firstName = ?, name = ?, email = ?, birthday = ? WHERE id = ?", 
 		[firstName, name, email, birthday, id ], 
@@ -169,7 +173,7 @@ app.delete('/user', function (req, res) {
 			message: 'Please provide user id' 
 		})
 	}
-	connection.connect()
+	
 	connection.query(
 		'DELETE FROM users WHERE id = ?', 
 		[id], 
